@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ripplets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF4E4;
+    --paper: #F3EAD3;
+    --ink: #201B14;
+    --sky: #7FCBE8;
+    --sky-deep: #2E93B8;
+    --coral: #FF6F3C;
+    --coral-deep: #D9481E;
+    --yolk: #FFC93C;
+    --pink: #FF9EC4;
+    --grass: #B7E362;
+    --line: #201B14;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(32,27,20,0.09) 1.5px, transparent 0);
+    background-size: 18px 18px;
+    color: var(--ink);
+    font-family: 'Patrick Hand', sans-serif;
+    padding: 0 0 60px;
+  }
+  .wrap { max-width: 660px; margin: 0 auto; padding: 0 16px; }
+
+  h1, h2, .headline { font-family: 'Kalam', cursive; font-weight: 700; margin: 0; }
+
+  .marquee {
+    background: var(--ink);
+    color: var(--yolk);
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 3px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 16s linear infinite;
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .sticker {
+    border: 3.5px solid var(--line);
+    border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
+    background: #fff;
+    box-shadow: 6px 6px 0 var(--line);
+  }
+
+  .hero {
+    text-align: center;
+    padding: 40px 20px 34px;
+    background: var(--sky) url('assets/scenes/hero_banner.png') center/cover no-repeat;
+    position: relative;
+    transform: rotate(-1deg);
+    margin-bottom: 22px;
+    border: 3.5px solid var(--line);
+    border-radius: 18px 22px 20px 24px / 22px 18px 24px 20px;
+    box-shadow: 8px 8px 0 var(--line);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: rgba(251, 244, 228, 0.5);
+    border-radius: inherit;
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .hero .badge {
+    display: inline-block;
+    background: var(--yolk);
+    border: 2.5px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    transform: rotate(-3deg);
+    margin-bottom: 16px;
+    box-shadow: 3px 3px 0 var(--line);
+  }
+  .hero .mascot {
+    width: 128px; height: 128px;
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    border: 3.5px solid var(--line);
+    border-radius: 50%;
+    box-shadow: 5px 5px 0 var(--line);
+    overflow: hidden;
+  }
+  .hero .mascot img { width: 100%; height: 100%; object-fit: cover; }
+
+  .speech-bubble {
+    position: relative;
+    background: #fff;
+    border: 3px solid var(--line);
+    border-radius: 20px;
+    padding: 14px 18px;
+    max-width: 260px;
+    margin: 0 auto 4px;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: left;
+    transform: rotate(-1.5deg);
+    box-shadow: 4px 4px 0 var(--line);
+  }
+  .speech-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -16px;
+    left: 38px;
+    width: 0; height: 0;
+    border: 12px solid transparent;
+    border-top-color: #fff;
+    border-bottom: 0;
+    filter: drop-shadow(0 3px 0 var(--line));
+  }
+  .hero h1 { font-size: 56px; letter-spacing: 0.5px; text-shadow: 3px 3px 0 var(--cream); }
+  .hero p { font-size: 19px; margin: 10px 0 22px; max-width: 380px; margin-left: auto; margin-right: auto; font-weight: 400; }
+
+  .btn {
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: 19px;
+    border: 3.5px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 28px;
+    background: var(--coral);
+    color: #fff;
+    box-shadow: 5px 5px 0 var(--line);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.08s ease;
+  }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--line); }
+  .btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--line); }
+  .btn.secondary { background: #fff; color: var(--ink); font-size: 15px; padding: 8px 18px; box-shadow: 3px 3px 0 var(--line); }
+
+  .section-title {
+    font-size: 24px;
+    text-align: center;
+    margin: 34px 0 16px;
+    transform: rotate(-0.8deg);
+  }
+  .section-title span {
+    background: var(--pink);
+    border: 2.5px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 20px;
+    box-shadow: 3px 3px 0 var(--line);
+    display: inline-block;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .stat {
+    padding: 18px 8px;
+    text-align: center;
+    transform: rotate(var(--tilt, 0deg));
+  }
+  .stat:nth-child(1) { background: var(--grass); --tilt: -2deg; }
+  .stat:nth-child(2) { background: var(--yolk); --tilt: 1.5deg; }
+  .stat:nth-child(3) { background: var(--pink); --tilt: -1deg; }
+  .stat .num { font-family: 'Kalam', cursive; font-size: 30px; font-weight: 700; }
+  .stat .lbl { font-size: 14px; font-weight: 700; opacity: 0.85; }
+
+  .card {
+    padding: 20px 22px;
+    background: #fff;
+    margin-bottom: 20px;
+    transform: rotate(0.5deg);
+  }
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .card-id { display: flex; align-items: center; gap: 14px; }
+  .thumb {
+    width: 60px; height: 60px; border-radius: 16px;
+    background: var(--sky);
+    border: 3px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .card-id .name { font-family: 'Kalam', cursive; font-size: 21px; font-weight: 700; }
+  .card-id .sub { font-size: 14px; opacity: 0.75; margin-top: -2px; }
+  .pill {
+    background: var(--grass); border: 2.5px solid var(--line); border-radius: 999px;
+    padding: 4px 14px; font-size: 13px; font-weight: 700; transform: rotate(-3deg);
+  }
+  .track {
+    height: 16px; background: var(--paper); border: 3px solid var(--line);
+    border-radius: 999px; overflow: hidden; margin-bottom: 12px; position: relative;
+  }
+  .track .fill {
+    height: 100%; width: 43%; background: repeating-linear-gradient(45deg, var(--coral), var(--coral) 8px, var(--coral-deep) 8px, var(--coral-deep) 16px);
+  }
+  .card-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 16px; }
+  .card-bottom .earned b { font-family: 'Kalam', cursive; font-size: 18px; }
+
+  .split-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px;
+    background: #fff;
+    margin-bottom: 20px;
+    transform: rotate(-0.4deg);
+  }
+  .split-card img {
+    width: 84px; height: 84px; object-fit: cover; border-radius: 50%;
+    border: 3px solid var(--line); flex-shrink: 0;
+  }
+  .split-card .copy { flex: 1; }
+  .split-card .headline { font-size: 20px; margin-bottom: 4px; }
+  .split-card p { font-size: 15px; opacity: 0.8; margin: 0 0 10px; }
+
+  .footnote {
+    text-align: center; font-size: 14px; opacity: 0.75; margin: 30px 0 4px;
+  }
+  .footnote .stamp {
+    display: inline-block; border: 2.5px dashed var(--line); border-radius: 10px;
+    padding: 8px 18px; transform: rotate(-1.5deg); background: #fff; font-weight: 700;
+  }
+
+  .speech-bubble { display: none; }
+
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(32,27,20,0.55);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #fff;
+    border: 3.5px solid var(--line);
+    border-radius: 18px;
+    padding: 24px;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 6px 6px 0 var(--line);
+  }
+  .modal-box img.qr { width: 200px; height: 200px; border: 2.5px solid var(--line); border-radius: 10px; margin-bottom: 12px; }
+  .modal-box p { font-size: 15px; margin: 0 0 12px; }
+  .modal-close {
+    font-family: 'Kalam', cursive; font-weight: 700; font-size: 14px;
+    border: 2.5px solid var(--line); border-radius: 10px; padding: 7px 16px;
+    background: #fff; cursor: pointer; box-shadow: 3px 3px 0 var(--line);
+  }
+  .wallet-pill {
+    display: inline-block; background: var(--grass); border: 2.5px solid var(--line);
+    border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight: 700;
+    margin-top: 10px;
+  }
+  .empty-note { text-align: center; font-size: 15px; opacity: 0.75; padding: 20px; }
+    .stats { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 42px; }
+    .split-card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="marquee"><span>🐧 WADDLE WADDLE &nbsp;&middot;&nbsp; 100 RIPPLETS, NO MORE, NO LESS &nbsp;&middot;&nbsp; STAKE = FREE $RPLTS WHILE YOU SLEEP &nbsp;&middot;&nbsp; 🐧 WADDLE WADDLE &nbsp;&middot;&nbsp; 100 RIPPLETS, NO MORE, NO LESS &nbsp;&middot;&nbsp; STAKE = FREE $RPLTS WHILE YOU SLEEP &nbsp;&middot;&nbsp;</span></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="badge">100% original &middot; hand-drawn &middot; xrpl</div>
+    <h1>ripplets</h1>
+    <p>100 tiny sketchy penguins, doing their best. lock one up, get paid in $rplts while it naps.</p>
+    <button class="btn" id="connectBtn" onclick="connectWallet()"><span>🪶</span> connect wallet</button>
+    <div id="walletPill"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat sticker">
+      <div class="num" id="statStaked">—</div>
+      <div class="lbl">currently napping</div>
+    </div>
+    <div class="stat sticker">
+      <div class="num">10/day</div>
+      <div class="lbl">$rplts per ripplet</div>
+    </div>
+    <div class="stat sticker">
+      <div class="num" id="statReserve">—</div>
+      <div class="lbl">reserve left</div>
+    </div>
+    <div class="stat sticker">
+      <div class="num" id="statDistributed">—</div>
+      <div class="lbl">$rplts paid out total</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span>your ripplets</span></div>
+
+  <div id="lifetimeTotal"></div>
+
+  <div id="availableContainer"></div>
+
+  <div id="stakesContainer">
+    <div class="empty-note sticker">connect your wallet to see your ripplets.</div>
+  </div>
+
+  <div class="section-title"><span>how it feels</span></div>
+
+  <div class="split-card sticker">
+    <img src="assets/scenes/success_state.png" alt="Celebrating penguin">
+    <div class="copy">
+      <p class="headline">nice catch!</p>
+      <p>your ripplet is staked and earning $rplts — no cap.</p>
+    </div>
+  </div>
+
+  <div class="split-card sticker" id="noWalletCard">
+    <img src="assets/scenes/empty_wallet_state.png" alt="Confused penguin, no wallet connected">
+    <div class="copy">
+      <p class="headline">no wallet yet?</p>
+      <p>connect one and your ripplets show up right here.</p>
+      <button class="btn secondary" onclick="connectWallet()"><span>🪶</span> connect wallet</button>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <span class="stamp">every stake, every rplt, out in the open 🧾</span>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="signModal">
+  <div class="modal-box">
+    <p id="modalText">scan with xaman to sign</p>
+    <img class="qr" id="modalQr" src="" alt="Xaman sign QR code">
+    <br>
+    <button class="modal-close" onclick="closeModal()">cancel</button>
+  </div>
+</div>
+
+<script>
+  // Point this at your deployed Railway backend URL once it's live.
+  // For local testing, run the backend with `npm start` and use localhost.
+  const API_BASE = 'https://ripplets-backend-production.up.railway.app/api';
+
+  let currentWallet = localStorage.getItem('ripplets_wallet') || null;
+
+  // If the landing page just connected a wallet, it'll be passed via URL —
+  // file:// pages can't share localStorage with each other, so this is how
+  // the handoff works when testing locally.
+  const urlParams = new URLSearchParams(window.location.search);
+  const walletFromUrl = urlParams.get('wallet');
+  if (walletFromUrl) {
+    currentWallet = walletFromUrl;
+    localStorage.setItem('ripplets_wallet', currentWallet);
+    // Clean the URL so a refresh doesn't keep re-processing it.
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+
+  // Tracks the currently-running Xaman poll, if any, so cancelling the
+  // modal can actually stop it — previously "cancel" only hid the popup
+  // while the poll kept running silently in the background, which is what
+  // let two overlapping stake/unstake attempts race each other.
+  let activePoll = null;
+
+  function openModal(qrUrl, text) {
+    document.getElementById('modalQr').src = qrUrl;
+    document.getElementById('modalText').textContent = text || 'scan with xaman to sign';
+    document.getElementById('signModal').classList.add('show');
+  }
+  function closeModal() {
+    document.getElementById('signModal').classList.remove('show');
+    if (activePoll) {
+      clearInterval(activePoll.interval);
+      if (activePoll.onCancel) activePoll.onCancel();
+      activePoll = null;
+    }
+  }
+
+  async function pollPayload(pollUrl, uuid, onResolved, onCancel) {
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`${pollUrl}/${uuid}`);
+        const data = await res.json();
+        if (data.resolved) {
+          clearInterval(interval);
+          activePoll = null;
+          document.getElementById('signModal').classList.remove('show');
+          onResolved(data);
+        }
+      } catch (e) {
+        console.error('poll error', e);
+      }
+    }, 2500);
+    activePoll = { interval, onCancel };
+  }
+
+  async function connectWallet() {
+    try {
+      const res = await fetch(`${API_BASE}/auth/signin`, { method: 'POST' });
+      const payload = await res.json();
+      openModal(payload.qr, "scan to connect your wallet");
+      pollPayload(`${API_BASE}/auth/signin`, payload.uuid, (result) => {
+        if (result.signed && result.account) {
+          currentWallet = result.account;
+          localStorage.setItem('ripplets_wallet', currentWallet);
+          renderWalletPill();
+          loadRewards();
+          loadAvailableNFTs();
+        }
+      });
+    } catch (e) {
+      alert("couldn't reach the backend — is it running and is API_BASE set correctly?");
+    }
+  }
+
+  function renderWalletPill() {
+    const pill = document.getElementById('walletPill');
+    const noWalletCard = document.getElementById('noWalletCard');
+    if (currentWallet) {
+      const short = currentWallet.slice(0, 6) + '…' + currentWallet.slice(-4);
+      pill.innerHTML = `<span class="wallet-pill">🪶 ${short}</span> <span class="wallet-pill" style="background:#fff; cursor:pointer;" onclick="disconnectWallet()">disconnect</span>`;
+      document.getElementById('connectBtn').style.display = 'none';
+      if (noWalletCard) noWalletCard.style.display = 'none';
+    }
+  }
+
+  function disconnectWallet() {
+    currentWallet = null;
+    localStorage.removeItem('ripplets_wallet');
+    document.getElementById('walletPill').innerHTML = '';
+    document.getElementById('connectBtn').style.display = 'inline-flex';
+    const noWalletCard = document.getElementById('noWalletCard');
+    if (noWalletCard) noWalletCard.style.display = '';
+    document.getElementById('availableContainer').innerHTML = '';
+    document.getElementById('stakesContainer').innerHTML = `<div class="empty-note sticker">connect your wallet to see your ripplets.</div>`;
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch(`${API_BASE}/stats`);
+      const data = await res.json();
+      document.getElementById('statStaked').textContent = `${data.stakedCount}/${data.totalSupply}`;
+      document.getElementById('statReserve').textContent = Math.round(data.reserveRemaining).toLocaleString();
+      const distEl = document.getElementById('statDistributed');
+      if (distEl) distEl.textContent = Math.round(data.totalDistributed).toLocaleString();
+    } catch (e) {
+      console.error('stats load failed', e);
+    }
+  }
+
+  async function loadRewards() {
+    const container = document.getElementById('stakesContainer');
+    const lifetimeEl = document.getElementById('lifetimeTotal');
+    if (!currentWallet) {
+      container.innerHTML = `<div class="empty-note sticker">connect your wallet to see your ripplets.</div>`;
+      if (lifetimeEl) lifetimeEl.innerHTML = '';
+      return;
+    }
+    try {
+      const res = await fetch(`${API_BASE}/rewards/${currentWallet}`);
+      const data = await res.json();
+
+      if (lifetimeEl) {
+        lifetimeEl.innerHTML = `<p style="text-align:center; font-size:15px; margin: 0 0 14px;">lifetime earned: <b style="font-family:'Kalam',cursive;">${data.lifetimeClaimed || 0} $rplts</b></p>`;
+      }
+
+      if (!data.stakes || data.stakes.length === 0) {
+        container.innerHTML = `<div class="empty-note sticker">no ripplets staked yet.</div>`;
+        return;
+      }
+      container.innerHTML = data.stakes.map(s => {
+        const stakedDate = new Date(s.stakedAt);
+        const daysStaked = Math.max(0, Math.floor((Date.now() - stakedDate) / (24 * 60 * 60 * 1000)));
+        return `
+          <div class="card sticker">
+            <div class="card-top">
+              <div class="card-id">
+                <div class="thumb" id="stakedthumb-${s.nftTokenId}"><img src="assets/scenes/napping_state.png" alt="Ripplet napping"></div>
+                <div>
+                  <div class="name">ripplet ${s.nftTokenId.slice(-6)}</div>
+                  <div class="sub">snoozing for ${daysStaked} day${daysStaked === 1 ? '' : 's'} &middot; unstake anytime</div>
+                </div>
+              </div>
+              <div class="pill">staked</div>
+            </div>
+            <div class="card-bottom">
+              <div class="earned">earned so far: <b>${s.accrued} $rplts</b></div>
+              <button class="btn secondary" onclick="unstake('${s.nftTokenId}', this)">unstake</button>
+            </div>
+          </div>`;
+      }).join('') + `
+        <div style="text-align:center; margin: 4px 0 20px;">
+          <button class="btn" onclick="claimAll()">🪙 claim ${data.totalAccrued} $rplts</button>
+        </div>`;
+
+      // Real images layered on top of the napping illustration once loaded.
+      data.stakes.forEach(async (s) => {
+        const img = await fetchNftImage(s.nftTokenId, null);
+        if (img) {
+          const el = document.getElementById(`stakedthumb-${s.nftTokenId}`);
+          if (el) el.innerHTML = `<img src="${img}" alt="Ripplet" style="width:100%; height:100%; object-fit:cover;">`;
+        }
+      });
+    } catch (e) {
+      console.error('rewards load failed', e);
+      container.innerHTML = `<div class="empty-note sticker">couldn't load your ripplets right now.</div>`;
+    }
+  }
+
+  async function claimAll() {
+    try {
+      const trustlineCheck = await fetch(`${API_BASE}/auth/trustline/${currentWallet}`);
+      const trustlineData = await trustlineCheck.json();
+      if (!trustlineData.hasTrustline) {
+        promptTrustline();
+        return;
+      }
+      await doClaim();
+    } catch (e) {
+      alert('claim failed — check the backend is running.');
+    }
+  }
+
+  async function promptTrustline() {
+    try {
+      const res = await fetch(`${API_BASE}/auth/trustline/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wallet: currentWallet }),
+      });
+      const payload = await res.json();
+      openModal(payload.qr, "first, set up a trustline for $rplts — one-time, then claiming works forever");
+      pollPayload(`${API_BASE}/auth/payload`, payload.uuid, async () => {
+        await doClaim();
+      });
+    } catch (e) {
+      alert('trustline setup failed — check the backend is running.');
+    }
+  }
+
+  async function doClaim() {
+    try {
+      const res = await fetch(`${API_BASE}/claim`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wallet: currentWallet }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || 'claim failed');
+        return;
+      }
+      alert(`claimed ${data.amount} $rplts!`);
+      loadRewards();
+      loadStats();
+    } catch (e) {
+      alert('claim failed — check the backend is running.');
+    }
+  }
+
+  async function unstake(nftTokenId, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'unstaking...'; }
+    const resetBtn = () => { if (btn) { btn.disabled = false; btn.textContent = 'unstake'; } };
+
+    try {
+      const res = await fetch(`${API_BASE}/unstake/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nftTokenId }),
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        alert(payload.error || 'unstake request failed');
+        if (payload.alreadyUnstaked) {
+          loadRewards();
+          loadStats();
+          loadAvailableNFTs();
+        }
+        resetBtn();
+        return;
+      }
+      openModal(payload.qr, 'scan to confirm unstake');
+      pollPayload(`${API_BASE}/auth/payload`, payload.uuid, async () => {
+        try {
+          const confirmRes = await fetch(`${API_BASE}/unstake/confirm`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uuid: payload.uuid, nftTokenId }),
+          });
+          const confirmData = await confirmRes.json();
+          if (confirmData.finalPayout > 0) {
+            alert(`unstaked! ${confirmData.finalPayout} $rplts paid out automatically.`);
+          }
+          loadRewards();
+          loadStats();
+          loadAvailableNFTs();
+        } finally {
+          resetBtn();
+        }
+      }, resetBtn); // if the user cancels the modal, re-enable the button too
+    } catch (e) {
+      alert('unstake failed — check the backend is running.');
+      resetBtn();
+    }
+  }
+
+  async function fetchNftImage(nftTokenId, ownerAddress) {
+    try {
+      const url = ownerAddress
+        ? `${API_BASE}/nft/${nftTokenId}/metadata?owner=${ownerAddress}`
+        : `${API_BASE}/nft/${nftTokenId}/metadata`;
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data.image;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function loadAvailableNFTs() {
+    const container = document.getElementById('availableContainer');
+    if (!currentWallet) {
+      container.innerHTML = '';
+      return;
+    }
+    try {
+      const res = await fetch(`${API_BASE}/wallet/${currentWallet}/nfts`);
+      const data = await res.json();
+      if (!data.nfts || data.nfts.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = data.nfts.map(n => `
+        <div class="card sticker">
+          <div class="card-top">
+            <div class="card-id">
+              <div class="thumb" id="thumb-${n.nftTokenId}" style="background:var(--yolk); display:flex; align-items:center; justify-content:center; font-size:22px;">🥚</div>
+              <div>
+                <div class="name">nft ${n.nftTokenId.slice(-6)}</div>
+                <div class="sub">not staked yet</div>
+              </div>
+            </div>
+            <button class="btn secondary" onclick="stakeNFT('${n.nftTokenId}', this)">stake</button>
+          </div>
+        </div>`).join('');
+
+      // Fill in real images after the cards render, so the list isn't
+      // blocked waiting on metadata fetches for every NFT.
+      data.nfts.forEach(async (n) => {
+        const img = await fetchNftImage(n.nftTokenId, currentWallet);
+        if (img) {
+          const el = document.getElementById(`thumb-${n.nftTokenId}`);
+          if (el) el.innerHTML = `<img src="${img}" alt="Ripplet" style="width:100%; height:100%; object-fit:cover;">`;
+        }
+      });
+    } catch (e) {
+      console.error('available nfts load failed', e);
+      container.innerHTML = '';
+    }
+  }
+
+  async function stakeNFT(nftTokenId, btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'staking...'; }
+    const resetBtn = () => { if (btn) { btn.disabled = false; btn.textContent = 'stake'; } };
+
+    try {
+      const res = await fetch(`${API_BASE}/stake/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nftTokenId, ownerAddress: currentWallet }),
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        alert(payload.error || 'stake request failed');
+        resetBtn();
+        return;
+      }
+      openModal(payload.qr, 'scan to confirm staking this nft');
+      pollPayload(`${API_BASE}/auth/payload`, payload.uuid, async () => {
+        try {
+          const confirmRes = await fetch(`${API_BASE}/stake/confirm`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uuid: payload.uuid, nftTokenId, ownerAddress: currentWallet }),
+          });
+          const confirmData = await confirmRes.json();
+          if (!confirmRes.ok) {
+            alert(confirmData.error || 'stake confirmation failed');
+            return;
+          }
+          loadAvailableNFTs();
+          loadRewards();
+          loadStats();
+        } finally {
+          resetBtn();
+        }
+      }, resetBtn); // if the user cancels the modal, re-enable the button too
+    } catch (e) {
+      alert('stake failed — check the backend is running.');
+      resetBtn();
+    }
+  }
+
+  // On page load: reconnect if we remember a wallet, and load public stats either way.
+  renderWalletPill();
+  loadStats();
+  if (currentWallet) {
+    loadRewards();
+    loadAvailableNFTs();
+  }
+</script>
+</body>
+</html>

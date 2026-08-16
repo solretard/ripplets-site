@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ripplets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF4E4;
+    --paper: #F3EAD3;
+    --ink: #201B14;
+    --sky: #7FCBE8;
+    --coral: #FF6F3C;
+    --coral-deep: #D9481E;
+    --yolk: #FFC93C;
+    --line: #201B14;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--sky) url('assets/scenes/hero_banner.png') center/cover no-repeat fixed;
+    color: var(--ink);
+    font-family: 'Patrick Hand', sans-serif;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    position: relative;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background: rgba(251, 244, 228, 0.45);
+    z-index: 0;
+  }
+
+  h1, .headline { font-family: 'Kalam', cursive; font-weight: 700; margin: 0; }
+
+  .landing {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border: 3.5px solid var(--line);
+    border-radius: 22px;
+    padding: 26px 24px 22px;
+    box-shadow: 8px 8px 0 var(--line);
+    transform: rotate(-0.5deg);
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--yolk);
+    border: 2.5px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    transform: rotate(-3deg);
+    margin-bottom: 14px;
+    box-shadow: 3px 3px 0 var(--line);
+  }
+
+  h1.title { font-size: 40px; margin-bottom: 18px; }
+
+  .intro-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 16px;
+    min-height: 110px;
+  }
+  .intro-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2.5px solid var(--line);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--sky);
+  }
+  .intro-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .intro-bubble {
+    background: var(--paper);
+    border: 2.5px solid var(--line);
+    border-radius: 4px 16px 16px 16px;
+    padding: 13px 15px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .intro-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .intro-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+  }
+  .intro-dot.active { background: var(--coral); }
+
+  .intro-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .intro-nav button {
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: 14px;
+    border: 2.5px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 15px;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--line);
+  }
+  .intro-nav button:disabled { opacity: 0.3; cursor: default; box-shadow: none; }
+  .intro-nav button:not(:disabled):hover { transform: translate(-1px,-1px); }
+  .intro-nav .next-btn { background: var(--coral); color: #fff; }
+  .intro-nav .skip-btn { background: none; border: none; box-shadow: none; opacity: 0.55; font-size: 13px; text-decoration: underline; }
+
+  .final-screen { display: none; }
+  .final-screen.show { display: block; }
+  .final-screen .mascot {
+    width: 96px; height: 96px; border-radius: 50%;
+    border: 3px solid var(--line);
+    overflow: hidden;
+    margin: 0 auto 14px;
+    box-shadow: 4px 4px 0 var(--line);
+  }
+  .final-screen .mascot img { width: 100%; height: 100%; object-fit: cover; }
+  .final-screen p { font-size: 16px; margin: 0 0 20px; }
+
+  .btn-main {
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: 19px;
+    border: 3.5px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 26px;
+    background: var(--coral);
+    color: #fff;
+    box-shadow: 5px 5px 0 var(--line);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    transition: transform 0.08s ease;
+  }
+  .btn-main:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--line); }
+  .btn-main:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--line); }
+
+  .skip-link {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-size: 13px;
+    opacity: 0.6;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="landing">
+
+  <div id="introScreen">
+    <div class="badge">100% original &middot; hand-drawn &middot; xrpl</div>
+    <h1 class="title">ripplets</h1>
+
+    <div class="intro-row">
+      <div class="intro-avatar"><img src="assets/pengy_base.png" alt="Ripplet"></div>
+      <div class="intro-bubble" id="introText">hii, i'm a ripplet 🐧 got a sec? lemme explain what this is.</div>
+    </div>
+
+    <div class="intro-dots" id="introDots"></div>
+
+    <div class="intro-nav">
+      <button id="prevBtn" onclick="introPrev()">back</button>
+      <button class="skip-btn" onclick="showFinal()">skip</button>
+      <button class="next-btn" id="nextBtn" onclick="introNext()">next</button>
+    </div>
+  </div>
+
+  <div class="final-screen" id="welcomeBackScreen">
+    <div class="mascot"><img src="assets/scenes/success_state.png" alt="Welcome back"></div>
+    <p id="welcomeBackText">hey, you're already connected!</p>
+    <button class="btn-main" id="continueBtn"><span>🪶</span> continue to your ripplets</button>
+    <span class="skip-link" onclick="disconnectAndRestart()">use a different wallet</span>
+  </div>
+
+  <div class="final-screen" id="finalScreen">
+    <div class="mascot"><img src="assets/scenes/success_state.png" alt="Ripplet ready to go"></div>
+    <p>alright, that's everything. connect your wallet and let's get you a ripplet napping.</p>
+    <button class="btn-main" id="connectBtn" onclick="connectWallet()"><span>🪶</span> connect wallet</button>
+    <span class="skip-link" onclick="window.location.href='app.html'">or just take a look around first</span>
+  </div>
+
+  <div class="modal-overlay" id="signModal" style="display:none; position:fixed; inset:0; background:rgba(32,27,20,0.55); z-index:50; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; border:3.5px solid var(--line); border-radius:18px; padding:24px; max-width:300px; text-align:center; box-shadow:6px 6px 0 var(--line);">
+      <p style="font-size:15px; margin:0 0 12px;">scan with xaman to connect</p>
+      <img id="modalQr" src="" alt="Xaman QR code" style="width:200px; height:200px; border:2.5px solid var(--line); border-radius:10px; margin-bottom:12px;">
+      <br>
+      <button onclick="document.getElementById('signModal').style.display='none'" style="font-family:'Kalam',cursive; font-weight:700; font-size:14px; border:2.5px solid var(--line); border-radius:10px; padding:7px 16px; background:#fff; cursor:pointer;">cancel</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const API_BASE = 'http://localhost:3000/api';
+
+  // If we already have a connected wallet saved from a previous visit,
+  // skip the whole intro and go straight to a "welcome back" screen.
+  const savedWallet = localStorage.getItem('ripplets_wallet');
+  if (savedWallet) {
+    document.getElementById('introScreen').style.display = 'none';
+    const short = savedWallet.slice(0, 6) + '…' + savedWallet.slice(-4);
+    document.getElementById('welcomeBackText').textContent = `hey, ${short} is already connected!`;
+    document.getElementById('welcomeBackScreen').classList.add('show');
+    document.getElementById('continueBtn').onclick = () => {
+      window.location.href = `app.html?wallet=${savedWallet}`;
+    };
+  }
+
+  function disconnectAndRestart() {
+    localStorage.removeItem('ripplets_wallet');
+    window.location.reload();
+  }
+
+  async function connectWallet() {
+    try {
+      const res = await fetch(`${API_BASE}/auth/signin`, { method: 'POST' });
+      const payload = await res.json();
+      document.getElementById('modalQr').src = payload.qr;
+      document.getElementById('signModal').style.display = 'flex';
+
+      const interval = setInterval(async () => {
+        try {
+          const statusRes = await fetch(`${API_BASE}/auth/signin/${payload.uuid}`);
+          const status = await statusRes.json();
+          if (status.resolved) {
+            clearInterval(interval);
+            document.getElementById('signModal').style.display = 'none';
+            if (status.signed && status.account) {
+              localStorage.setItem('ripplets_wallet', status.account);
+              window.location.href = `app.html?wallet=${status.account}`;
+            }
+          }
+        } catch (e) {}
+      }, 2500);
+    } catch (e) {
+      alert("couldn't reach the backend — is it running?");
+    }
+  }
+</script>
+
+<script>
+  const introSlides = [
+    "hii, i'm a ripplet 🐧 got a sec? lemme explain what this is.",
+    "100 of us live on the xrp ledger. every ripplet is hand-drawn, no two look alike.",
+    "stake me and i'll pay you 10 $rplts a day while i nap — unstake anytime, no lock, no catch.",
+    "the reward pool, the reserve, every stake — all onchain, all public. nothing hidden."
+  ];
+
+  let introIndex = 0;
+  const introText = document.getElementById('introText');
+  const introDots = document.getElementById('introDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const introScreen = document.getElementById('introScreen');
+  const finalScreen = document.getElementById('finalScreen');
+
+  function renderDots() {
+    introDots.innerHTML = '';
+    introSlides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'intro-dot' + (i === introIndex ? ' active' : '');
+      introDots.appendChild(dot);
+    });
+  }
+
+  function renderIntro() {
+    introText.textContent = introSlides[introIndex];
+    prevBtn.disabled = introIndex === 0;
+    nextBtn.textContent = (introIndex === introSlides.length - 1) ? "let's go" : 'next';
+    renderDots();
+  }
+
+  function introNext() {
+    if (introIndex < introSlides.length - 1) {
+      introIndex++;
+      renderIntro();
+    } else {
+      showFinal();
+    }
+  }
+
+  function introPrev() {
+    if (introIndex > 0) {
+      introIndex--;
+      renderIntro();
+    }
+  }
+
+  function showFinal() {
+    introScreen.style.display = 'none';
+    finalScreen.classList.add('show');
+  }
+
+  renderIntro();
+</script>
+</body>
+</html>
