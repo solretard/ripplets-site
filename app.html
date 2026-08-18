@@ -291,9 +291,9 @@
 <div class="wrap">
 
   <div class="hero">
-    <div class="badge">100% original &middot; hand-drawn &middot; xrpl</div>
+    <div class="badge">100% original &middot; xrpl</div>
     <h1>ripplets</h1>
-    <p>100 tiny sketchy penguins, doing their best. lock one up, get paid in $rplts while it naps.</p>
+    <p>100 tiny penguins, doing their best. lock one up, get paid in $rplts while it naps.</p>
     <button class="btn" id="connectBtn" onclick="connectWallet()"><span>🪶</span> connect wallet</button>
     <div id="walletPill"></div>
   </div>
@@ -304,7 +304,7 @@
       <div class="lbl">currently napping</div>
     </div>
     <div class="stat sticker">
-      <div class="num">10/day</div>
+      <div class="num">42/day</div>
       <div class="lbl">$rplts per ripplet</div>
     </div>
     <div class="stat sticker">
@@ -348,6 +348,17 @@
 
   <div class="footnote">
     <span class="stamp">every stake, every rplt, out in the open 🧾</span>
+  </div>
+
+  <div class="section-title"><span>get more ripplets</span></div>
+
+  <div class="card sticker" id="mint" style="text-align:center;">
+    <div style="background:#1a1a1a; border-radius:14px; padding:20px; margin:-4px -6px 0;">
+      <script src="https://xrp.cafe/embed/mint.js"
+        data-vanity="ripplets"
+        data-theme="dark"
+        async></script>
+    </div>
   </div>
 
 </div>
@@ -489,7 +500,11 @@
       }
 
       if (!data.stakes || data.stakes.length === 0) {
-        container.innerHTML = `<div class="empty-note sticker">no ripplets staked yet.</div>`;
+        container.innerHTML = `
+          <div class="empty-note sticker">no ripplets staked yet.</div>
+          <div style="text-align:center; margin: 0 0 20px;">
+            <button class="btn secondary" onclick="document.getElementById('mint').scrollIntoView({behavior:'smooth'})">don't have one yet? get a ripplet ↓</button>
+          </div>`;
         return;
       }
       container.innerHTML = data.stakes.map(s => {
