@@ -274,8 +274,12 @@
         if (!res.ok) return;
         const meta = await res.json();
         if (meta.image) {
+          // Route through our own backend instead of loading directly from
+          // the IPFS gateway — some gateways block cross-origin image
+          // embedding for security reasons, our proxy sidesteps that.
+          const proxiedUrl = `${API_BASE}/image-proxy?url=${encodeURIComponent(meta.image)}`;
           const el = document.getElementById(`thumb-${h.nftTokenId}`);
-          if (el) el.innerHTML = `<img src="${meta.image}" alt="Ripplet">`;
+          if (el) el.innerHTML = `<img src="${proxiedUrl}" alt="Ripplet">`;
         }
       } catch (e) {}
     });
