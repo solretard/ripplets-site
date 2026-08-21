@@ -234,16 +234,24 @@
       // Discovery — registers/reconciles anything new, no signature needed.
       await fetch(`${API_BASE}/wallet/${currentWallet}/ripplets`);
 
-      // Then pull the full holdings + rewards view.
-      const res = await fetch(`${API_BASE}/holdings/${currentWallet}`);
-      const data = await res.json();
-      renderHoldings(data);
+      // Then pull the full holdings + rewards view, plus claim status.
+      const [holdingsRes, claimRes] = await Promise.all([
+        fetch(`${API_BASE}/holdings/${currentWallet}`),
+        fetch(`${API_BASE}/claim/${currentWallet}/check`),
+      ]);
+      const data = await holdingsRes.json();
+      const claimInfo = await claimRes.json();
+      renderHoldings(data, claimInfo);
     } catch (e) {
       area.innerHTML = `<div class="empty-note sticker">couldn't check that wallet — is the backend running?</div>`;
     }
   }
 
-  function renderHoldings(data) {
+  let countdownInterval = null;
+
+  function renderHoldings(data, claimInfo) {
+    if (countdownInterval) clearInterval(countdownInterval);
+
     const area = document.getElementById('resultsArea');
     if (!data.holdings || data.holdings.length === 0) {
       area.innerHTML = `<div class="empty-note sticker">no ripplets found in this wallet.</div>`;
@@ -264,14 +272,40 @@
         </div>
       </div>`).join('');
 
+    const claimSection = claimInfo && claimInfo.claimUnlocked === false
+      ? `<div class="claim-bar">
+           <button class="btn secondary" disabled id="claimCountdownBtn">claim unlocks in —</button>
+         </div>`
+      : `<div class="claim-bar">
+           <button class="btn" onclick="openClaimModal()">🪙 claim ${data.totalAccrued} $rplts</button>
+         </div>`;
+
     area.innerHTML = `
       <div class="section-title"><span>this wallet's ripplets</span></div>
       ${cardsHtml}
-      <div class="claim-bar">
-        <button class="btn" onclick="openClaimModal()">🪙 claim ${data.totalAccrued} $rplts</button>
-      </div>
+      ${claimSection}
       <p style="text-align:center; font-size:13px; opacity:0.65;">lifetime earned by this wallet: ${data.lifetimePaid || 0} $rplts</p>
     `;
+
+    if (claimInfo && claimInfo.claimUnlocked === false && claimInfo.claimUnlocksAt) {
+      const unlockTime = new Date(claimInfo.claimUnlocksAt).getTime();
+      const updateCountdown = () => {
+        const remaining = unlockTime - Date.now();
+        const btn = document.getElementById('claimCountdownBtn');
+        if (!btn) { clearInterval(countdownInterval); return; }
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          checkWallet(); // re-render with claim now active
+          return;
+        }
+        const hrs = Math.floor(remaining / 3600000);
+        const mins = Math.floor((remaining % 3600000) / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        btn.textContent = `claim unlocks in ${hrs}h ${mins}m ${secs}s`;
+      };
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
 
     data.holdings.forEach(async (h) => {
       try {
