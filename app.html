@@ -136,6 +136,15 @@
   .footnote { text-align: center; font-size: 13px; opacity: 0.75; margin: 30px 0 4px; }
   .footnote .stamp { display: inline-block; border: 2.5px dashed var(--line); border-radius: 10px; padding: 8px 18px; transform: rotate(-1.5deg); background: #fff; font-weight: 700; }
 
+  .socials { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+  .social-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 2.5px solid var(--line); border-radius: 999px;
+    padding: 7px 16px; font-family: 'Kalam', cursive; font-weight: 700; font-size: 14px;
+    text-decoration: none; color: var(--ink); box-shadow: 3px 3px 0 var(--line);
+  }
+  .social-link:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--line); }
+
   @media (max-width: 420px) {
     .stats { grid-template-columns: 1fr; }
     .hero h1 { font-size: 38px; }
@@ -209,6 +218,11 @@
 
   <div class="footnote">
     <span class="stamp">every ripplet, every rplt, out in the open 🧾</span>
+  </div>
+
+  <div class="socials">
+    <a class="social-link" href="https://t.me/Ripplets_Xrpl" target="_blank" rel="noopener">💬 telegram</a>
+    <a class="social-link" href="https://x.com/Ripplets_XRPL" target="_blank" rel="noopener">🐦 x</a>
   </div>
 
 </div>

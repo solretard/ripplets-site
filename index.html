@@ -27,7 +27,7 @@
     font-family: 'Patrick Hand', sans-serif;
   }
   body {
-    display: flex; align-items: center; justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: 24px 16px; position: relative;
   }
   body::before {
@@ -117,6 +117,18 @@
     font-size: 20px; cursor: pointer;
   }
   .sound-toggle:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--line); }
+
+  .socials {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; gap: 10px; margin-top: 16px;
+  }
+  .social-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 2.5px solid var(--line); border-radius: 999px;
+    padding: 7px 16px; font-family: 'Kalam', cursive; font-weight: 700; font-size: 14px;
+    text-decoration: none; color: var(--ink); box-shadow: 3px 3px 0 var(--line);
+  }
+  .social-link:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--line); }
 </style>
 </head>
 <body>
@@ -149,6 +161,11 @@
     <button class="btn-main" onclick="goCheck()" style="width:100%;">🔍 check my ripplets</button>
   </div>
 
+</div>
+
+<div class="socials">
+  <a class="social-link" href="https://t.me/Ripplets_Xrpl" target="_blank" rel="noopener">💬 telegram</a>
+  <a class="social-link" href="https://x.com/Ripplets_XRPL" target="_blank" rel="noopener">🐦 x</a>
 </div>
 
 <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">🔇</button>
